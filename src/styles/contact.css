@@ -1,0 +1,8 @@
+#container {
+	height: fit-content;
+	padding: 10vh 0;
+}
+
+form {
+	background-color: var(--highlight-color);
+}

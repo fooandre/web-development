@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../styles/main.css">
+    <link rel="stylesheet" href="./../styles/home.css">
+    <title>Document</title>
+</head>
+<body>
+    <section id="hero">
+        <div class="container">
+            <div class="left">
+                <img src="./../assets/images/Logo.png" alt="Logo" id="home-logo">
+                <div id="text">
+                    <span>Learn Code The Right Way</span> <br>
+                    <span class="h1 bold to-upper">Welcome To <br> Learn To Code</span>
+                </div>
+            </div>
+
+            <div class="right">
+                <a href="./Contact.html">Contact Us</a>
+            </div>
+        </div>
+
+        <div id="scroll">
+            <span class="h3 bold to-upper">Scroll down</span>
+        </div>
+
+        <div class="opacity"></div>
+        <img src="./../assets/images/Hero.jpeg" alt="Background Image" class="background-image">
+    </section>
+
+    <section id="start-now">
+        <div class="left">
+            <img src="./../assets/images/User.png" alt="Profile Icon">
+        </div>
+
+        <div class="right">
+            <span class="bold to-upper">Want to learn code <br> But don't know where to start?</span> <br>
+            <span>No worries! We got you!</span> <br>
+            <span>Just pick a course and follow along!</span> <br>
+            
+            <a href="./Login.html">
+                Start learning 
+                <em><span class="bold to-upper">Now</span></em>
+            </a>
+        </div>
+    </section>
+
+    <section id="course-list">
+        <span class="h3 bold to-upper">Courses available</span>
+
+        <div id="courses">
+            <a href="./Course.html" id="html-css-js" class="course">
+                <img src="./../assets/images/Javascript.png" alt="Javascript Icon" class="icon">
+
+                <div class="text">
+                    <span class="title">Web development basics</span> <br>
+                    <span class="description bold to-upper">Learn to build stunning websites</span>
+                </div>
+            </a>
+
+            <a href="./Course.html" id="java" class="course reverse">
+                <img src="./../assets/images/Java.png" alt="Java Icon" class="icon">
+
+                <div class="text">
+                    <span class="title">Android apps 101</span> <br>
+                    <span class="description bold to-upper">Learn to create professional apps</span>
+                </div>
+            </a>
+
+            <a href="./Course.html" id="python" class="course">
+                <img src="./../assets/images/Python.png" alt="Python Icon" class="icon">
+
+                <div class="text">
+                    <span class="title">Introduction to data science</span> <br>
+                    <span class="description bold to-upper">Learn the basics of python</span>
+                </div>
+            </a>
+        
+            <a href="./Course.html" id="c-sharp" class="course reverse">
+                <img src="./../assets/images/CSharp.png" alt="C-Sharp Icon" class="icon">
+
+                <div class="text">
+                    <span class="title">Game development basics</span> <br>
+                    <span class="description bold to-upper">Create next level games</span>
+                </div>
+            </a>
+        </div>
+
+            <div class="opacity"></div>
+            <img src="./../assets/images/Courses.png" alt="Background Image" class="background-image">
+        </div>
+    </section>
+
+    <section id="home-footer">
+        <div class="left">
+            <form action="#">
+                <legend>Sign up for our newsletter</legend>
+
+                <div class="input">
+                    <label for="name">name</label> <br>
+                    <input type="text" name="name">
+                </div>
+
+                <div class="input">
+                    <label for="email">email</label> <br>
+                    <input type="text" name="email">
+                </div>
+
+                <button>sign up</button>
+            </form>
+        </div>
+
+        <div class="right">
+            <div class="top">
+                <span class="h2 bold to-upper">Pages</span> <br>
+
+                <a href="#hero">Homepage</a>
+                <a href="#courses">Courses</a>
+                <a href="#">About us</a>
+                <a href="#">Get in touch</a>
+            </div>
+
+            <div class="bottom">
+                <span class="h2 bold to-upper">Courses</span> <br>
+               
+                <a href="#">Html, Css, Js</a>
+                <a href="#">Java</a>
+                <a href="#">Python</a>
+                <a href="#">Csharp</a>
+            </div>
+        </div>
+    </section>
+</body>
+
+<script>
+    const courses = document.getElementById('courses').children
+
+    for (const course of courses) {
+        course.addEventListener('click', () => {
+            const title = course.getAttribute('id')
+
+            localStorage.setItem("course", title)
+        })
+    }
+</script>
+</html>

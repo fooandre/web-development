@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../styles/main.css">
+    <link rel="stylesheet" href="./../styles/course.css">
+    <title>Document</title>
+</head>
+<body onload="renderPage(courseSelected())">
+    <header class="header">
+        <a href="./Home.html" id="logo"><img src="./../assets/images/Logo.png" alt="Logo"></a>
+
+        <nav>
+            <a href="./Home.html#courses">Courses</a>
+            <a href="./About.html">About us</a>
+            <a href="./Contact.html">Get in touch</a>
+            <a href="./Login.html">Login</a>
+        </nav>
+    </header>
+
+    <section id="unavailable">
+        <div id="pop-up">
+            <span class="h2 bold to-upper">Course unavailable</span>
+            <span>Course coming soon <br> sorry for the inconvenience.</span>
+            <button onclick="hideUnavailable()" class="okay">Okay</button>
+        </div>
+    </section>
+
+    <section id="container">
+        <div class="top">
+            <span id="title" class="title h2 bold"></span> <br>
+            <span id="description" class="description h3"></span>
+        </div>
+
+        <div id="completed">
+            <em><span class="h1 to-upper text">Completed</span></em>
+        </div>
+
+        <div class="buttons">
+            <a onclick="redirect(courseSelected())" id="start">Start</a>
+            <a href="./Home.html#courses" id="back">Change course</a>
+        </div>
+    
+        <div id="incomplete">
+            <span class="bold">Course content</span>
+            <ul id="topics"></ul>
+        </div>    
+    </section>
+
+    
+    <footer class="footer">Copyright © 2021 learntocode. All rights reserved</footer>
+</body>
+
+<script>
+    const completed = false
+
+    const courses = {
+        "html-css-js": {
+            "title": "Web development basics",
+            "description": "This courses covers HTML, CSS and Javascript fundamentals",
+            "topics": [
+                "Introduction to HTML",
+                "HTML part II",
+                "Introduction to CSS",
+                "CSS part II",
+                "Javascript fundamentals",
+                "Javascript part II",
+                "Javascript part III",
+                "Javascript part IV",
+                "Javascript part V",
+                "Putting it all together"
+            ]
+        },
+        "java": {
+            "title": "Android apps 101",
+            "description": "This courses covers java essentials needed for android app development",
+            "topics": [
+                "Variables and data types",
+                "Functions and method",
+                "Introduction to object-oriented programming",
+                "Object-oriented programming part II",
+                "Object-oriented programming part III",
+                "Object-oriented programming part IV"
+            ]
+        },
+        "python": {
+            "title": "Introduction to data science",
+            "description": "This courses covers basic programming skills",
+            "topics": [
+                "Introduction to python programming",
+                "Variables and data types",
+                "Functions and methods",
+                "Modules (imports and exports)",
+                "Object-oriented programming part II",
+                "Object-oriented programming part III",
+                "Object-oriented programming part IV"
+            ]
+        },
+        "c-sharp": {
+            "title": "Game development basics",
+            "description": "This courses covers basic C# to help you get started on game development",
+            "topics": [
+                "Introduction to programming in C#",
+                "Variables and data types",
+                "Functions and methods",
+                "Modules (imports and exports)",
+                "Object-oriented programming part II",
+                "Object-oriented programming part III",
+                "Object-oriented programming part IV"
+            ]
+        }
+    }
+
+    const courseSelected = () => localStorage.getItem("course")
+
+    const renderTopics = course => {
+        const topicsElement = document.getElementById("topics")
+        const topics = courses[course].topics
+        
+        for (const topic of topics) {
+            var li = document.createElement("li")
+            var content = document.createTextNode(topic)
+            li.appendChild(content)
+            topicsElement.appendChild(li)
+        }
+    }
+
+    const renderCompletion = () => {
+        const container = document.getElementById("container")
+        container.style.height = "82vh"
+
+        const hideDiv = document.getElementById("incomplete")
+        const hideBtn = document.getElementById("start")
+
+        hideDiv.style.display = "none"
+        hideBtn.style.display = "none"
+
+        const showDiv = document.getElementById("completed")
+        showDiv.style.display = "flex"
+        
+        const nextBtn = document.getElementById("back")
+        nextBtn.innerHTML = "Next course"
+    }
+    
+    const renderPage = course => {
+        const titleElement = document.getElementById("title")
+        const descriptionElement = document.getElementById("description")
+        
+        titleElement.innerHTML = courses[course].title
+        descriptionElement.innerHTML = courses[course].description
+
+        completed? renderCompletion() : renderTopics(course)
+    }
+
+    const showUnavailable = () => {
+        const showDiv = document.getElementById("unavailable")
+        showDiv.style.display = "flex"
+    }
+    
+    const hideUnavailable = () => {
+        const showDiv = document.getElementById("unavailable")
+        showDiv.style.display = "none"
+    }
+
+    const redirect = course => {
+        courses[course].title !== "Web development basics" ? showUnavailable() : window.location = "./Learn.html"
+    }
+</script>
+</html>
