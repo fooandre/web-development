@@ -5,22 +5,223 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../styles/main.css">
-    <!-- <link rel="stylesheet" href="./../styles/learn.css"> -->
+    <link rel="stylesheet" href="./../styles/learn.css">
+    <script src="./../scripts/ace/ace.js" defer></script>
+    <script src="./../scripts/ace/mode-javascript.js" defer></script>
+    <script src="./../scripts/ace/ext-language_tools.js" defer></script>
+    <!-- <script src="./../scripts/editor.js" defer></script> -->
+
     <title>Document</title>
 </head>
 <body>
-    <header class="header">
+    <header id="header">
         <a href="./Home.html" id="logo"><img src="./../assets/images/Logo.png" alt="Logo"></a>
 
         <nav>
             <a href="./Home.html#courses">Courses</a>
-            <a href="./About.html">About us</a>
             <a href="./Contact.html">Get in touch</a>
             <a href="./Login.html">Login</a>
         </nav>
     </header>
 
-    <section id="container"></section>
+    <div class="sidebar--tab" id="sidebar--tab"><</div>
+    <div class="sidebar" id="sidebar">
+        <span class="sidebar__title h2 bold">Lesson title</span>
+
+        <div class="sidebar__lesson">
+            <p class="sidebar__text h3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia voluptas impedit non cum? Animi natus ut possimus optio fugit aliquam ex rem, quisquam est inventore ipsa, ab ullam magni voluptatibus.</p>
+            <div class="sidebar__code-example h3">1.  Some code</div>
+        </div>
+        
+        <button class="sidebar__btn bold" id="sidebar__btn">I got it!</button>
+    </div>
+    
+    <div class="pop-up" id="pop-up">
+        <span class="pop-up__text h2 bold to-upper">Good job</span>
+        <button class="pop-up__btn bold" id="pop-up__btn">Next</button>
+    </div>
+
+    <div class="opacity-filter" id="opacity-filter"></div>
+    
+    <section class="container" id="container">
+
+        <div class="container__text">
+            <div class="container__div">
+                <span class="container__title h3" id="container__title"></span> <br>
+                <span class="container__topic bold to-upper" id="container__topic"></span> <br>
+            </div>
+
+            <span class="container__challenge" id="container__challenge">Some challenge</span>
+        </div>
+
+        <div class="container__editor">
+            <div class="container__buttons">
+                <button class="container__run-btn" id="container__run-btn">
+                    <img class="container__play" src="./../assets/images/Arrow.png" alt="Play Icon">
+                </button>
+                
+                <button class="container__reset-btn" id="container__reset-btn">
+                    <img class="container__reset" src="./../assets/images/Reload.png" alt="Reload Icon">
+                </button>
+            </div>
+
+            <div type="text" class="container__textarea" id="container__textarea"></div>
+
+            <div class="container__output" id="container__output">
+                <div class="container__output--tab h3 bold" id="container__output--tab">Output</div>
+                <iframe class="container__iframe" id="container__iframe"></iframe>
+                <ul class="container__terminal" id="container__terminal"></ul>
+            </div>
+        </div>
     </section>
 </body>
+
+<script type="module">
+    import { courses } from './../scripts/app.js';
+
+    const showOutput = () => {
+        const output = document.getElementById("container__output")
+        output.style.top = "-50vh"
+    }
+    
+    const hideOutput = () => {
+        const output = document.getElementById("container__output")
+        output.style.top = "0"
+    }
+
+    const showTerminal = () => {
+        const output = document.getElementById("container__terminal")
+        output.style.display = "block"
+    }
+    
+    const hideTerminal = () => {
+        const output = document.getElementById("container__terminal")
+        output.style.display = "none"
+    }
+
+    const showIframe = () => {
+        const output = document.getElementById("container__iframe")
+        output.style.display = "block"
+    }
+    
+    const hideIframe = () => {
+        const output = document.getElementById("container__iframe")
+        output.style.display = "none"
+    }
+    
+    const showSidebar = () => {
+        const sidebar = document.getElementById("sidebar")
+        const tab = document.getElementById("sidebar--tab")
+        const filter = document.getElementById("opacity-filter")
+        
+        sidebar.style.right = "0"
+        tab.style.opacity = "0"
+        filter.style.opacity = "1"
+        filter.style.zIndex = "20"
+    }
+    
+    const hideSidebar = () => {
+        const sidebar = document.getElementById("sidebar")
+        const tab = document.getElementById("sidebar--tab")
+        const filter = document.getElementById("opacity-filter")
+        
+        sidebar.style.right = "-100vw"
+        tab.style.opacity = "100%"
+        filter.style.opacity = "0"
+        filter.style.zIndex = "0"
+    }
+
+    const showPopup = () => {
+        const popup = document.getElementById("pop-up")
+        const filter = document.getElementById("opacity-filter")
+
+        popup.style.opacity = 1
+        popup.style.zIndex = 30
+        filter.style.zIndex = 20
+        filter.style.opacity = 1
+    }
+
+    const sidebarBtn = document.getElementById("sidebar__btn")
+    const sidebarTab = document.getElementById("sidebar--tab")
+
+    sidebarBtn.addEventListener("click", () => hideSidebar())
+    sidebarTab.addEventListener("click", () => showSidebar())
+
+    let count = 0
+    const tab = document.getElementById("container__output--tab")
+    
+    tab.addEventListener("click", () => {
+        count++
+
+        count % 2 != 0 ? showOutput() : hideOutput()
+    })
+
+    const course = localStorage.getItem("course")
+    const defaultCode = courses[course]["default code"] || ""
+
+    const title = document.getElementById("container__title")
+    const topic = document.getElementById("container__topic")
+
+
+    title.innerHTML = courses[course]["title"]
+    topic.innerHTML = courses[course]["topics"][0]
+
+    if (course == "html-css-js") {
+        hideTerminal()
+        showIframe()
+    } else {
+        hideIframe()
+        showTerminal()
+    }
+
+    const setUpEditor = () => {
+        window.editor = ace.edit("container__textarea")
+        editor.setTheme("ace/theme/pastel_on_dark")
+        editor.getSession().setMode("ace/mode/html")
+        editor.focus()
+        editor.getSession().on('change', () => update())
+        editor.setOptions({
+            fontFamily: "Jetbrains Mono",
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true
+        }),
+        editor.setValue(defaultCode, 1)
+    }
+
+    const runBtn = document.getElementById("container__run-btn")
+    const resetBtn = document.getElementById("container__reset-btn")
+    const nextBtn = document.getElementById("pop-up__btn")
+
+    const completed = {
+        'html-css-js': false,
+        'java': false,
+        'python': false,
+        "c-sharp": false
+    }
+
+    runBtn.addEventListener("click", () => {
+        showPopup()
+    })
+
+    resetBtn.addEventListener("click", () => {
+        editor.setValue(defaultCode, 1)
+    })
+
+    nextBtn.addEventListener("click", () => {
+        window.location = "./Course.html"
+
+        completed[course] = true
+        localStorage.setItem("completed", JSON.stringify(completed))
+    })
+
+    const update = () => {
+        const idoc = document.getElementById('container__iframe').contentWindow.document;
+
+        idoc.open();
+        idoc.write(editor.getValue());
+        idoc.close();
+    }
+
+    window.onload = () => setUpEditor()
+</script>
 </html>

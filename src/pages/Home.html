@@ -9,139 +9,148 @@
     <title>Document</title>
 </head>
 <body>
-    <section id="hero">
-        <div class="container">
-            <div class="left">
-                <img src="./../assets/images/Logo.png" alt="Logo" id="home-logo">
-                <div id="text">
-                    <span>Learn Code The Right Way</span> <br>
-                    <span class="h1 bold to-upper">Welcome To <br> Learn To Code</span>
+    <section class="hero" id="hero">
+        <div class="hero__container">
+            <div class="hero__div hero__div--left">
+                <img src="./../assets/images/Logo.png" alt="Logo" class="hero__logo">
+                <div class="hero__text">
+                    <span class="hero__title">Learn Code The Right Way</span> <br>
+                    <span class="hero__description h1 bold to-upper">Welcome To <br> Learn To Code</span>
                 </div>
             </div>
 
-            <div class="right">
-                <a href="./Contact.html">Contact Us</a>
+            <div class="hero__div hero__div--right">
+                <a href="./Contact.html" class="hero__redirect">Contact Us</a>
             </div>
         </div>
 
-        <div id="scroll">
-            <span class="h3 bold to-upper">Scroll down</span>
+        <div class="hero__container hero__container--bottom">
+            <span class="hero__text h3 bold to-upper">Scroll down</span>
         </div>
 
-        <div class="opacity"></div>
-        <img src="./../assets/images/Hero.jpeg" alt="Background Image" class="background-image">
+        <div class="opacity-filter"></div>
+        <img src="./../assets/images/Hero.jpeg" alt="Background Image" class="hero__background-image">
     </section>
 
-    <section id="start-now">
-        <div class="left">
-            <img src="./../assets/images/User.png" alt="Profile Icon">
+    <section class="to-login">
+        <div class="to-login__container to_login__container--left">
+            <img class="to-login__image" src="./../assets/images/User.png" alt="Profile Icon">
         </div>
 
-        <div class="right">
-            <span class="bold to-upper">Want to learn code <br> But don't know where to start?</span> <br>
-            <span>No worries! We got you!</span> <br>
-            <span>Just pick a course and follow along!</span> <br>
+        <div class="to-login__container to-login__container--right">
+            <span class="to-login__title bold to-upper">Want to learn code <br> But don't know where to start?</span> <br>
+            <span class="to-login__text">No worries! We got you!</span> <br>
+            <span class="to-login__text">Just pick a course and follow along!</span> <br>
             
-            <a href="./Login.html">
+            <a href="./Login.html" class="to-login__redirect">
                 Start learning 
-                <em><span class="bold to-upper">Now</span></em>
+                <em><span class="to-login__text bold to-upper">Now</span></em>
             </a>
         </div>
     </section>
 
-    <section id="course-list">
-        <span class="h3 bold to-upper">Courses available</span>
+    <section class="courses">
+        <span class="courses__title h3 bold to-upper">Courses available</span>
 
-        <div id="courses">
-            <a href="./Course.html" id="html-css-js" class="course">
-                <img src="./../assets/images/Javascript.png" alt="Javascript Icon" class="icon">
+        <div class="courses__list" id="courses__list">
+            <a href="./Course.html" id="html-css-js" class="courses__redirect">
+                <img src="./../assets/images/Javascript.png" alt="Javascript Icon" class="courses__icon">
 
-                <div class="text">
-                    <span class="title">Web development basics</span> <br>
-                    <span class="description bold to-upper">Learn to build stunning websites</span>
+                <div class="courses__text">
+                    <span class="courses__title">Web development basics</span> <br>
+                    <span class="courses__description bold to-upper">Learn to build stunning websites</span>
                 </div>
             </a>
 
-            <a href="./Course.html" id="java" class="course reverse">
-                <img src="./../assets/images/Java.png" alt="Java Icon" class="icon">
+            <a href="./Course.html" id="java" class="courses__redirect courses__redirect--reverse">
+                <img src="./../assets/images/Java.png" alt="Java Icon" class="courses__icon">
 
-                <div class="text">
-                    <span class="title">Android apps 101</span> <br>
-                    <span class="description bold to-upper">Learn to create professional apps</span>
+                <div class="courses__text">
+                    <span class="courses__title">Android apps 101</span> <br>
+                    <span class="courses__description bold to-upper">Learn to create beautiful apps.</span>
                 </div>
             </a>
 
-            <a href="./Course.html" id="python" class="course">
-                <img src="./../assets/images/Python.png" alt="Python Icon" class="icon">
+            <a href="./Course.html" id="python" class="courses__redirect">
+                <img src="./../assets/images/Python.png" alt="Python Icon" class="courses__icon">
 
-                <div class="text">
-                    <span class="title">Introduction to data science</span> <br>
-                    <span class="description bold to-upper">Learn the basics of python</span>
+                <div class="courses__text">
+                    <span class="courses__title">Introduction to data science</span> <br>
+                    <span class="courses__description bold to-upper">Learn the basics of python</span>
                 </div>
             </a>
-        
-            <a href="./Course.html" id="c-sharp" class="course reverse">
-                <img src="./../assets/images/CSharp.png" alt="C-Sharp Icon" class="icon">
 
-                <div class="text">
-                    <span class="title">Game development basics</span> <br>
-                    <span class="description bold to-upper">Create next level games</span>
+            <a href="./Course.html" id="c-sharp" class="courses__redirect courses__redirect--reverse">
+                <img src="./../assets/images/CSharp.png" alt="C# Icon" class="courses__icon">
+
+                <div class="courses__text">
+                    <span class="courses__title">Game development basics</span> <br>
+                    <span class="courses__description bold to-upper">Code next level games</span>
                 </div>
             </a>
         </div>
 
-            <div class="opacity"></div>
-            <img src="./../assets/images/Courses.png" alt="Background Image" class="background-image">
-        </div>
+        <div class="opacity-filter"></div>
+        <img src="./../assets/images/Courses.png" alt="Background Image" class="courses__background-image">
     </section>
 
-    <section id="home-footer">
-        <div class="left">
-            <form action="#">
-                <legend>Sign up for our newsletter</legend>
+    <section class="footer">
+        <div class="footer__container footer__container--left">
+            <form class="footer__form" action="#">
+                <legend class="footer__form-title">Sign up for our newsletter</legend>
 
-                <div class="input">
-                    <label for="name">name</label> <br>
-                    <input type="text" name="name">
+                <div class="footer__input">
+                    <label class="footer__label" for="name">name</label> <br>
+                    <input class="footer__area" type="text" name="name">
                 </div>
 
-                <div class="input">
-                    <label for="email">email</label> <br>
-                    <input type="text" name="email">
+                <div class="footer__input">
+                    <label class="footer__label" for="email">email</label> <br>
+                    <input class="footer__area" type="text" name="email">
                 </div>
 
-                <button>sign up</button>
+                <button class="footer__submit">sign up</button>
             </form>
         </div>
 
-        <div class="right">
-            <div class="top">
-                <span class="h2 bold to-upper">Pages</span> <br>
+        <div class="footer__container footer__container--right">
+            <div class="footer__links footer__links--top">
+                <span class="footer__title h2 bold to-upper">Pages</span> <br>
 
-                <a href="#hero">Homepage</a>
-                <a href="#courses">Courses</a>
-                <a href="#">About us</a>
-                <a href="#">Get in touch</a>
+                <a href="#hero" class="footer__link">Homepage</a>
+                <a href="#courses__list" class="footer__link">Courses</a>
+                <a href="./Contact.html" class="footer__link">Get in touch</a>
             </div>
 
-            <div class="bottom">
-                <span class="h2 bold to-upper">Courses</span> <br>
-               
-                <a href="#">Html, Css, Js</a>
-                <a href="#">Java</a>
-                <a href="#">Python</a>
-                <a href="#">Csharp</a>
+            <div class="footer__links footer__links--bottom" id="footer__links">
+                <span class="footer__title h2 bold to-upper">Courses</span> <br>
+
+                <a href="./Course.html" class="footer__link" course="html-css-js">Html, Css, Js</a>
+                <a href="./Course.html" class="footer__link" course="java">Java</a>
+                <a href="./Course.html" class="footer__link" course="python">Python</a>
+                <a href="./Course.html" class="footer__link" course="c-sharp">Csharp</a>
             </div>
         </div>
     </section>
 </body>
 
 <script>
-    const courses = document.getElementById('courses').children
+    const courses = document.getElementById("courses__list").children
+    const links = document.getElementById("footer__links").children
 
     for (const course of courses) {
         course.addEventListener('click', () => {
             const title = course.getAttribute('id')
+
+            localStorage.setItem("course", title)
+        })
+    }
+
+    for (const link of links) {
+        link.addEventListener('click', () => {
+            const title = link.getAttribute('course')
+
+            console.log(title);
 
             localStorage.setItem("course", title)
         })

@@ -1,10 +1,17 @@
+.hero__background-image,
+.courses__background-image {
+	position: absolute;
+	filter: blur(3px);
+	z-index: -10;
+}
+
 /* Hero Section */
 
-#hero {
+.hero {
 	color: var(--primary-color);
 }
 
-#hero > .container {
+.hero__container {
 	height: 100vh;
 	width: 100vw;
 	display: flex;
@@ -12,46 +19,49 @@
 	padding: 15vh 10vw 0 10vw;
 }
 
-#hero a {
+.hero__redirect {
 	border-radius: 500px;
 	border: 2px solid var(--primary-color);
 	padding: 1.5vh 3vw;
 }
 
-#hero a:hover {
+.hero__redirect:hover {
 	background-color: var(--primary-color);
 }
 
-#home-logo {
+.hero__logo {
 	height: 20vh;
 	filter: drop-shadow(0 0 3px black);
+	margin-bottom: 5vh;
 }
 
-#text {
+.hero__redirect {
 	position: relative;
 	top: 5vh;
 }
 
-#scroll {
+.hero__container--bottom {
 	background: linear-gradient(180deg, var(--highlight-color) 0%, var(--secondary-color) 90%);
 	color: var(--secondary-color);
-	text-align: center;
 	position: relative;
 	top: -5vh;
 	height: 5vh;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
 }
 
-#scroll span {
+.hero__text {
 	position: relative;
 	top: -2vh;
 	text-shadow: var(--highlight-color) 0 0 5px;
 }
 
-#hero .opacity {
+.opacity-filter {
 	top: 0;
 }
 
-#hero .background-image {
+.hero__background-image {
 	top: 0;
 	width: 100vw;
 	height: 100vh;
@@ -59,53 +69,54 @@
 
 /* StartNow Section */
 
-#start-now {
+.to-login {
 	background-color: var(--secondary-color);
 	display: flex;
 	height: 90vh;
 }
 
-#start-now .left {
+.to-login__container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 50vw;
 }
 
-#start-now img {
+.to-login__image {
 	border: #0e0e0e 5px solid;
 	border-radius: 30px;
 	padding: 3vw;
 	width: 26vw;
 }
 
-#start-now .right {
+.to-login__container--right {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 	justify-content: space-between;
 	padding: 15vh 0;
 }
 
-#start-now a {
+.to-login__redirect {
 	border-radius: 500px;
 	background-color: var(--highlight-color);
 	width: fit-content;
 	padding: 1.5vh 3vw;
 }
 
-#start-now a:hover {
+.to-login__redirect:hover {
 	background-color: var(--secondary-color);
 	border: var(--highlight-color) 2px solid;
 }
 
 /* CourseList Section */
 
-#course-list {
+.courses {
 	height: 110vh;
 	color: var(--primary-color);
 }
 
-#course-list > span {
+.courses > .courses__title {
 	background-color: var(--highlight-color);
 	display: flex;
 	align-items: center;
@@ -114,31 +125,31 @@
 	box-shadow: #0e0e0e 0 2px 5px;
 }
 
-#courses .icon {
-	height: 15vh;
-}
-
-#courses .text {
-	line-height: 2;
-}
-
-#courses .course {
+.courses__redirect {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 5vh 10vw;
 }
 
-#courses .reverse {
+.courses__icon {
+	height: 15vh;
+}
+
+.courses__text {
+	line-height: 2;
+}
+
+.courses__redirect--reverse {
 	background-color: rgba(14, 14, 14, 0.3);
 	flex-direction: row-reverse;
 }
 
-#course-list .opacity {
+.courses .opacity-filter {
 	top: 200vh;
 }
 
-#course-list .background-image {
+.courses__background-image {
 	top: 200vh;
 	width: 100vw;
 	height: 100vh;
@@ -146,7 +157,7 @@
 
 /* Footer Section */
 
-#home-footer {
+.footer {
 	background-color: var(--tertiary-color);
 	color: var(--primary-color);
 	height: 70vh;
@@ -156,7 +167,7 @@
 	padding: 0 3vw;
 }
 
-form {
+.footer__form {
 	background-color: var(--highlight-color);
 	border-radius: 0 20px 0 20px;
 	box-shadow: var(--secondary-color) -0.7vw 1vh 0;
@@ -168,13 +179,13 @@ form {
 	padding: 15vh;
 }
 
-form legend {
+.container__form-title {
 	position: relative;
 	top: -5vh;
 	font-size: 0.7em;
 }
 
-#home-footer .right {
+.footer__container--right {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -182,11 +193,11 @@ form legend {
 	height: 60vh;
 }
 
-#home-footer a {
+.footer__link {
 	margin-right: 2vw;
 }
 
-#home-footer a::before {
+.footer__link::before {
 	margin-right: 2vw;
 	content: "|";
 }

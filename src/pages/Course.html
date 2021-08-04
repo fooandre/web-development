@@ -8,122 +8,68 @@
     <link rel="stylesheet" href="./../styles/course.css">
     <title>Document</title>
 </head>
-<body onload="renderPage(courseSelected())">
-    <header class="header">
+<body>
+    <header id="header">
         <a href="./Home.html" id="logo"><img src="./../assets/images/Logo.png" alt="Logo"></a>
 
         <nav>
-            <a href="./Home.html#courses">Courses</a>
-            <a href="./About.html">About us</a>
+            <a href="./Home.html#courses__List">Courses</a>
             <a href="./Contact.html">Get in touch</a>
             <a href="./Login.html">Login</a>
         </nav>
     </header>
 
-    <section id="unavailable">
-        <div id="pop-up">
-            <span class="h2 bold to-upper">Course unavailable</span>
-            <span>Course coming soon <br> sorry for the inconvenience.</span>
-            <button onclick="hideUnavailable()" class="okay">Okay</button>
+    <section class="pop-up" id="pop-up">
+        <div class="pop-up__container">
+            <span class="pop-up__title h2 bold to-upper">Course unavailable</span>
+            <span class="pop-up__description">Course coming soon <br> sorry for the inconvenience.</span>
+            <button class="pop-up__button" id="pop-up__button">Okay</button>
         </div>
     </section>
 
-    <section id="container">
-        <div class="top">
-            <span id="title" class="title h2 bold"></span> <br>
-            <span id="description" class="description h3"></span>
+    <section class="container" id="container">
+        <div class="container__div container__div--top">
+            <span class="contianer__title h2 bold" id="container__title"></span> <br>
+            <span class="contianer__description h3" id="container__description"></span>
         </div>
 
-        <div id="completed">
-            <em><span class="h1 to-upper text">Completed</span></em>
+        <div class="container__div container__div--completed" id="container__div--completed">
+            <em><span class="container__text h1 to-upper">Completed</span></em>
         </div>
 
-        <div class="buttons">
-            <a onclick="redirect(courseSelected())" id="start">Start</a>
-            <a href="./Home.html#courses" id="back">Change course</a>
+        <div class="container__div container__div--buttons">
+            <a href="#" class="container__redirect container__redirect--start" id="container__redirect--start">Start</a>
+            <a href="./Home.html#courses__list" class="container__redirect container__redirect--back" id="container__redirect--back">Change course</a>
         </div>
     
-        <div id="incomplete">
-            <span class="bold">Course content</span>
-            <ul id="topics"></ul>
+        <div class="container__div container__div--incomplete" id="container__div--incomplete">
+            <span class="container__title bold">Course content</span>
+            <ul class="container__list" id="container__list"></ul>
         </div>    
     </section>
 
     
-    <footer class="footer">Copyright © 2021 learntocode. All rights reserved</footer>
+    <footer id="footer">Copyright © 2021 learntocode. All rights reserved</footer>
 </body>
 
-<script>
-    const completed = false
-
-    const courses = {
-        "html-css-js": {
-            "title": "Web development basics",
-            "description": "This courses covers HTML, CSS and Javascript fundamentals",
-            "topics": [
-                "Introduction to HTML",
-                "HTML part II",
-                "Introduction to CSS",
-                "CSS part II",
-                "Javascript fundamentals",
-                "Javascript part II",
-                "Javascript part III",
-                "Javascript part IV",
-                "Javascript part V",
-                "Putting it all together"
-            ]
-        },
-        "java": {
-            "title": "Android apps 101",
-            "description": "This courses covers java essentials needed for android app development",
-            "topics": [
-                "Variables and data types",
-                "Functions and method",
-                "Introduction to object-oriented programming",
-                "Object-oriented programming part II",
-                "Object-oriented programming part III",
-                "Object-oriented programming part IV"
-            ]
-        },
-        "python": {
-            "title": "Introduction to data science",
-            "description": "This courses covers basic programming skills",
-            "topics": [
-                "Introduction to python programming",
-                "Variables and data types",
-                "Functions and methods",
-                "Modules (imports and exports)",
-                "Object-oriented programming part II",
-                "Object-oriented programming part III",
-                "Object-oriented programming part IV"
-            ]
-        },
-        "c-sharp": {
-            "title": "Game development basics",
-            "description": "This courses covers basic C# to help you get started on game development",
-            "topics": [
-                "Introduction to programming in C#",
-                "Variables and data types",
-                "Functions and methods",
-                "Modules (imports and exports)",
-                "Object-oriented programming part II",
-                "Object-oriented programming part III",
-                "Object-oriented programming part IV"
-            ]
-        }
-    }
+<script type="module">
+    import { courses } from './../scripts/app.js'
 
     const courseSelected = () => localStorage.getItem("course")
+    const course = courseSelected()
+    
+    const status = JSON.parse(localStorage.getItem("completed"))
+    const completed = status == null ? false : status[course]
 
     const renderTopics = course => {
-        const topicsElement = document.getElementById("topics")
+        const list = document.getElementById("container__list")
         const topics = courses[course].topics
         
         for (const topic of topics) {
             var li = document.createElement("li")
             var content = document.createTextNode(topic)
             li.appendChild(content)
-            topicsElement.appendChild(li)
+            list.appendChild(li)
         }
     }
 
@@ -131,22 +77,22 @@
         const container = document.getElementById("container")
         container.style.height = "82vh"
 
-        const hideDiv = document.getElementById("incomplete")
-        const hideBtn = document.getElementById("start")
+        const hideDiv = document.getElementById("container__div--incomplete")
+        const hideBtn = document.getElementById("container__redirect--start")
 
         hideDiv.style.display = "none"
         hideBtn.style.display = "none"
 
-        const showDiv = document.getElementById("completed")
+        const showDiv = document.getElementById("container__div--completed")
         showDiv.style.display = "flex"
         
-        const nextBtn = document.getElementById("back")
+        const nextBtn = document.getElementById("container__redirect--back")
         nextBtn.innerHTML = "Next course"
     }
     
     const renderPage = course => {
-        const titleElement = document.getElementById("title")
-        const descriptionElement = document.getElementById("description")
+        const titleElement = document.getElementById("container__title")
+        const descriptionElement = document.getElementById("container__description")
         
         titleElement.innerHTML = courses[course].title
         descriptionElement.innerHTML = courses[course].description
@@ -155,17 +101,21 @@
     }
 
     const showUnavailable = () => {
-        const showDiv = document.getElementById("unavailable")
+        const showDiv = document.getElementById("pop-up")
         showDiv.style.display = "flex"
     }
     
     const hideUnavailable = () => {
-        const showDiv = document.getElementById("unavailable")
+        const showDiv = document.getElementById("pop-up")
         showDiv.style.display = "none"
     }
 
     const redirect = course => {
-        courses[course].title !== "Web development basics" ? showUnavailable() : window.location = "./Learn.html"
+        course == "html-css-js" ? window.location = "./Learn.html" : showUnavailable()
     }
+
+    window.addEventListener("load", () => renderPage(course))
+    document.getElementById("container__redirect--start").addEventListener("click", () => redirect(course))
+    document.getElementById("pop-up__button").addEventListener("click", () => hideUnavailable())
 </script>
 </html>

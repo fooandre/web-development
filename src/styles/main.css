@@ -33,20 +33,6 @@ a:hover {
 	color: var(--highlight-color);
 }
 
-.opacity {
-	background-color: rgba(14, 14, 14, 0.8);
-	position: absolute;
-	width: 100vw;
-	height: 100vh;
-	z-index: -5;
-}
-
-.background-image {
-	position: absolute;
-	filter: blur(3px);
-	z-index: -10;
-}
-
 .bold {
 	font-weight: 900;
 }
@@ -74,7 +60,7 @@ section {
 
 /* Header */
 
-.header {
+#header {
 	position: relative;
 	background-color: var(--highlight-color);
 	box-shadow: #0e0e0e 0 1px 0.5vh;
@@ -84,10 +70,10 @@ section {
 	height: 8vh;
 	width: 100vw;
 	padding: 0 3vw;
-	z-index: 10;
+	z-index: 100;
 }
 
-.header img {
+#header img {
 	height: 6vh;
 }
 
@@ -95,33 +81,43 @@ section {
 	padding: 0;
 }
 
-#logo:hover {
+#header #logo:hover {
 	background-color: var(--highlight-color);
 }
 
-.header nav {
+#header nav {
 	display: inline-block;
 	font-size: 0.8em;
 	width: fit-content;
 }
 
-.header a {
+#header a {
 	border-radius: 8px;
 	font-weight: 900;
 	padding: 1vh 2vw;
 }
 
-.header a:hover {
+#header a:hover {
 	background-color: var(--primary-color);
 }
 
 /* Container */
 
-#container {
+.container {
 	background-color: var(--secondary-color);
 	display: flex;
-	height: fit-content;
+	height: 82vh;
 	justify-content: space-between;
+}
+
+/* Opacity */
+
+.opacity-filter {
+	background-color: rgba(14, 14, 14, 0.8);
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	z-index: -5;
 }
 
 /* Forms */
@@ -168,7 +164,7 @@ form button:hover {
 
 /* Footer */
 
-.footer {
+#footer {
 	background-color: var(--highlight-color);
 	box-shadow: #0e0e0e 0 -2px 0.5vh;
 	position: relative;
