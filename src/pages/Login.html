@@ -5,22 +5,165 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../styles/main.css">
-    <link rel="stylesheet" href="./../styles/about.css">
+    <link rel="stylesheet" href="./../styles/login.css">
+    <script src="./../scripts/render.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <header id="header">
-        <a href="./Home.html" id="logo"><img src="./../assets/images/Logo.png" alt="Logo"></a>
+    <header id="header"></header>
 
-        <nav>
-            <a href="./Home.html#courses__list">Courses</a>
-            <a href="./Contact.html">Get in touch</a>
-            <a href="#">Login</a>
-        </nav>
-    </header>
+    <div class="container">
+        <div class="container__div container__div--left">
+            <img src="./../assets/images/User.png" alt="User Icon" class="container__image">
+        </div>
 
-    Login
+        <div class="container__div container__div--right">
+            <span class="container__text container__text--top h2 bold to-upper" id="container__title">Login</span>
+
+            <div class="container__form">
+                <div class="container__input-element" id="container__input-element">
+                    <label for="input" class="container__label h3 bold" id="container__label">name</label>
+                    <input type="text" name="input" class="container__input" id="container__input"> <br>
+                    <span class="error-message" id="error-message">Your username and/or password is incorrect. Please try again.</span>
+                </div>
+
+                <div class="container__buttons">
+                    <div class="container__back-btn h3" id="container__back-btn"><< Back</div>
+                    <div class="container__next-btn h3" id="container__next-btn">Next >></div>
+                </div>
+            </div>
+
+            <button class="container__text--bottom h3" id="container__text--bottom">Sign up instead</button>
+        </div>
+    </div>
 
     <footer id="footer">Copyright © 2021 learntocode. All rights reserved</footer>
 </body>
+<script type="module">
+    import { users } from "./../scripts/app.js"
+    import { completed } from "./../scripts/app.js"
+
+    const usersList = JSON.parse(localStorage.getItem("users")) || users
+
+    if (localStorage.getItem("logged-in") != null) window.location = "./User.html"
+    
+    const title = document.getElementById("container__title")
+    const label = document.getElementById("container__label")
+    const input = document.getElementById("container__input")
+    const errorMessage = document.getElementById("error-message")
+    const nextBtn = document.getElementById("container__next-btn")
+    const backBtn = document.getElementById("container__back-btn")
+    const changeBtn = document.getElementById("container__text--bottom")
+
+    let inputs = []
+    
+    const showError = () => {
+        input.style.border = "none"
+        input.style.border = "var(--error-color) 3px solid"
+
+        errorMessage.style.display = "block"
+    }
+
+    const hideError = () => {
+        input.style.border = "none"
+        input.style.borderLeft = input.style.borderBottom = "#0e0e0e 3px solid"
+        errorMessage.style.display = "none"
+    }
+
+    const inputIsValid = input => input != ""
+
+    const logIn = (user, password) => {
+        const toCourse = localStorage.getItem("to-course")
+
+        if (password == usersList[user]) {
+            localStorage.setItem("logged-in", user)
+
+            window.location == toCourse ? "./Course.html" : "./User.html"
+            window.location.reload()
+            
+            return
+        }
+
+        inputs.pop()
+        showError()
+    }
+
+    const signUp = (user, password) => {
+        const completedList = JSON.parse(localStorage.getItem("completed")) || completed
+
+        if (typeof usersList[user] !== "undefined") return alert("User already exists!")
+
+        usersList[user] = password
+        completedList[user] = {
+            'html-css-js': false,
+            'java': false,
+            'python': false,
+            "c-sharp": false
+        }
+
+        localStorage.setItem("users", JSON.stringify(usersList))
+        localStorage.setItem("completed", JSON.stringify(completedList))
+        localStorage.setItem("logged-in", user)
+        
+        window.location = "./User.html"
+    }
+
+    input.onmousedown = () => hideError()
+
+    backBtn.onmouseover = () => backBtn.style.cursor = "pointer"
+
+    backBtn.onclick = event => {
+        event.preventDefault()
+
+        inputs = []
+
+        label.textContent = "name"
+        input.value = ""
+
+        backBtn.style.display = "none"
+
+        nextBtn.textContent = "Next >>"
+    }
+
+    nextBtn.onclick = event => {
+        event.preventDefault()
+
+        if (inputIsValid(input.value)) {
+            if (inputs.length < 2) inputs.push(input.value)
+
+            label.textContent = "password"
+            input.value = ""
+
+            backBtn.style.display = "block"
+
+            hideError()
+
+            if (nextBtn.textContent == "Login" && label.textContent == "password") return logIn(...inputs)
+            if (nextBtn.textContent == "Sign up" && label.textContent == "password") return signUp(...inputs)
+            
+            title.textContent == "Login" ? nextBtn.textContent = "Login" : nextBtn.textContent = "Sign up"
+
+            return
+        }
+
+        if (title.textContent == "Login") return showError()
+
+        alert(`Please input a valid ${label.textContent}`)
+    }
+
+    changeBtn.onclick = () => {
+        hideError()
+
+        inputs = []
+
+        label.textContent = "name"
+        input.value = ""
+        
+        backBtn.style.display = "none"
+        nextBtn.textContent = "next >>"
+
+        title.textContent == "Login" ? title.textContent = "Sign up" : title.textContent = "Login"
+        changeBtn.textContent == "Sign up instead" ? changeBtn.textContent = "Or login" : changeBtn.textContent = "Sign up instead"
+    }
+</script>
 </html>

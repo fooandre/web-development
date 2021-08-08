@@ -1,0 +1,151 @@
+#header {
+	position: fixed;
+	top: 0;
+}
+
+.container__sidebar {
+	background-color: var(--primary-color);
+	position: fixed;
+	top: 8vh;
+	left: 0;
+	height: 82vh;
+	width: 30vw;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	padding: 0 3vw;
+}
+
+.container__profile {
+	align-self: center;
+	border-radius: 20px;
+	background-color: var(--highlight-color);
+	height: 20vh;
+	width: 20vh;
+}
+
+.container__list {
+	height: 15vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	list-style-type: none;
+}
+
+.container__list a {
+	color: var(--tertiary-color);
+}
+
+.container__list a:hover {
+	color: var(--highlight-color);
+	text-transform: italic;
+	font-weight: 900;
+}
+
+.container--right {
+	background-color: var(--secondary-color);
+	position: relative;
+	top: 8vh;
+	left: 30vw;
+	height: 200vh;
+	width: 70vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.container--right a {
+	align-self: flex-end;
+	color: var(--tertiary-color);
+}
+
+.container__logout {
+	position: relative;
+	top: 3vh;
+	right: 3vw;
+}
+
+.container__logout:hover {
+	text-decoration: underline;
+}
+
+.container__table {
+	border: 3px solid #000;
+	height: 60vh;
+	width: 50vw;
+	text-align: left;
+	padding: 1vh 2vw;
+}
+
+.container__security {
+	height: 82vh;
+	width: 70vw;
+	text-align: center;
+}
+
+.container__danger {
+	background-color: rgba(14, 14, 14, 0.4);
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	position: relative;
+	top: -10vh;
+	height: 15vh;
+	width: 70vw;
+}
+
+.container__danger a:hover {
+	text-decoration: underline;
+}
+
+#footer {
+	position: fixed;
+	bottom: 0;
+}
+
+@media screen and (max-width: 1300px) {
+	.container__table {
+		font-size: 0.8em;
+	}
+
+	.container__title {
+		font-size: 1em;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.container__sidebar {
+		display: none;
+	}
+
+	.container--right {
+		left: 0;
+		width: 100vw;
+	}
+
+	.container__table {
+		width: 80vw;
+	}
+
+	.container__danger {
+		width: 100vw;
+	}
+}
+
+@media screen and (max-width: 575px) {
+	.container__table {
+		font-size: 0.6em;
+	}
+
+	.container__title {
+		font-size: 0.7em;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.container__span {
+		font-size: 0.6em;
+	}
+}

@@ -43,7 +43,7 @@
             <span class="to-login__text">Just pick a course and follow along!</span> <br>
             
             <a href="./Login.html" class="to-login__redirect">
-                Start learning 
+                <span>Start learning</span>
                 <em><span class="to-login__text bold to-upper">Now</span></em>
             </a>
         </div>
@@ -53,7 +53,7 @@
         <span class="courses__title h3 bold to-upper">Courses available</span>
 
         <div class="courses__list" id="courses__list">
-            <a href="./Course.html" id="html-css-js" class="courses__redirect">
+            <a href="./Course.html" course="html-css-js" class="courses__redirect">
                 <img src="./../assets/images/Javascript.png" alt="Javascript Icon" class="courses__icon">
 
                 <div class="courses__text">
@@ -62,7 +62,7 @@
                 </div>
             </a>
 
-            <a href="./Course.html" id="java" class="courses__redirect courses__redirect--reverse">
+            <a href="./Course.html" course="java" class="courses__redirect courses__redirect--reverse">
                 <img src="./../assets/images/Java.png" alt="Java Icon" class="courses__icon">
 
                 <div class="courses__text">
@@ -71,7 +71,7 @@
                 </div>
             </a>
 
-            <a href="./Course.html" id="python" class="courses__redirect">
+            <a href="./Course.html" course="python" class="courses__redirect">
                 <img src="./../assets/images/Python.png" alt="Python Icon" class="courses__icon">
 
                 <div class="courses__text">
@@ -80,7 +80,7 @@
                 </div>
             </a>
 
-            <a href="./Course.html" id="c-sharp" class="courses__redirect courses__redirect--reverse">
+            <a href="./Course.html" course="c-sharp" class="courses__redirect courses__redirect--reverse">
                 <img src="./../assets/images/CSharp.png" alt="C# Icon" class="courses__icon">
 
                 <div class="courses__text">
@@ -95,21 +95,27 @@
     </section>
 
     <section class="footer">
+        <div class="footer__pop-up" id="footer__pop-up">
+            <span class="footer__title h2 bold">Form submitted</span> <br>
+            <span class="footer__text">Thank you for signing up!</span> <br>
+            <button class="footer__btn bold" id="footer__btn">Okay</button>
+        </div>
+
         <div class="footer__container footer__container--left">
-            <form class="footer__form" action="#">
+            <form class="footer__form" id="footer__form" action="#">
                 <legend class="footer__form-title">Sign up for our newsletter</legend>
 
                 <div class="footer__input">
                     <label class="footer__label" for="name">name</label> <br>
-                    <input class="footer__area" type="text" name="name">
+                    <input class="footer__input-area" type="text" name="name" required>
                 </div>
 
                 <div class="footer__input">
                     <label class="footer__label" for="email">email</label> <br>
-                    <input class="footer__area" type="text" name="email">
+                    <input class="footer__input-area" type="email" name="email" required>
                 </div>
 
-                <button class="footer__submit">sign up</button>
+                <button class="footer__submit" id="footer__submit">sign up</button>
             </form>
         </div>
 
@@ -117,7 +123,7 @@
             <div class="footer__links footer__links--top">
                 <span class="footer__title h2 bold to-upper">Pages</span> <br>
 
-                <a href="#hero" class="footer__link">Homepage</a>
+                <a href="./Login.html" class="footer__link">Login</a>
                 <a href="#courses__list" class="footer__link">Courses</a>
                 <a href="./Contact.html" class="footer__link">Get in touch</a>
             </div>
@@ -125,10 +131,10 @@
             <div class="footer__links footer__links--bottom" id="footer__links">
                 <span class="footer__title h2 bold to-upper">Courses</span> <br>
 
-                <a href="./Course.html" class="footer__link" course="html-css-js">Html, Css, Js</a>
+                <a href="./Course.html" class="footer__link" course="html-css-js">HTML, CSS, JS</a>
                 <a href="./Course.html" class="footer__link" course="java">Java</a>
                 <a href="./Course.html" class="footer__link" course="python">Python</a>
-                <a href="./Course.html" class="footer__link" course="c-sharp">Csharp</a>
+                <a href="./Course.html" class="footer__link" course="c-sharp">C#</a>
             </div>
         </div>
     </section>
@@ -136,24 +142,70 @@
 
 <script>
     const courses = document.getElementById("courses__list").children
-    const links = document.getElementById("footer__links").children
+    const footer = document.getElementById("footer__links").children
 
-    for (const course of courses) {
-        course.addEventListener('click', () => {
-            const title = course.getAttribute('id')
+    const redirect = links => {
+        for (const link of links) {
+            link.onclick = event => {
+                event.preventDefault();
+                
+                const title = link.getAttribute("course")
+                localStorage.setItem("course", title)
 
-            localStorage.setItem("course", title)
-        })
+                if (localStorage.getItem("logged-in") == null) {
+                    localStorage.setItem("to-course", true)
+
+                    window.location = "./Login.html"
+
+                    return
+                }
+
+                window.location = link.getAttribute("href")
+            }
+        }
     }
 
-    for (const link of links) {
-        link.addEventListener('click', () => {
-            const title = link.getAttribute('course')
+    const formBtn = document.getElementById("footer__submit")
 
-            console.log(title);
+    const inputsAreValid = inputs => {
+        for (const input in inputs) {
+            if (input.value == "" || input.value == undefined) return false
+        }
 
-            localStorage.setItem("course", title)
-        })
+        return true
+    }
+
+    const styleInputs = (inputs, valid) => {
+        for (const input of inputs) {
+                input.value = valid ? "" : input.value
+                input.style.backgroundColor = valid ? "var(--primary-color)" : "rgba(236, 41, 41, 0.3)"
+                
+                valid ? input.style.border = "none"
+                : input.style.borderLeft = input.style.borderBottom = "var(--error-color) 3px solid"
+            }
+    }
+
+    const popUp = () => {
+        const popUp = document.getElementById("footer__pop-up")
+        const popUpBtn = document.getElementById("footer__btn")
+
+        popUp.style.display = "flex"
+
+        popUpBtn.onclick = () => popUp.style.display = "none"
+    }
+
+    
+    for (const links of [courses, footer]) redirect(links)
+    
+    formBtn.onclick = event => {
+        event.preventDefault()
+
+        const inputs = document.getElementsByTagName("input")
+
+        const valid = inputsAreValid(inputs)
+
+        styleInputs(inputs, valid)
+        !valid || popUp()
     }
 </script>
 </html>

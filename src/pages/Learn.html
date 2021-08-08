@@ -9,20 +9,12 @@
     <script src="./../scripts/ace/ace.js" defer></script>
     <script src="./../scripts/ace/mode-javascript.js" defer></script>
     <script src="./../scripts/ace/ext-language_tools.js" defer></script>
-    <!-- <script src="./../scripts/editor.js" defer></script> -->
+    <script src="./../scripts/render.js" defer></script>
 
     <title>Document</title>
 </head>
 <body>
-    <header id="header">
-        <a href="./Home.html" id="logo"><img src="./../assets/images/Logo.png" alt="Logo"></a>
-
-        <nav>
-            <a href="./Home.html#courses">Courses</a>
-            <a href="./Contact.html">Get in touch</a>
-            <a href="./Login.html">Login</a>
-        </nav>
-    </header>
+    <header id="header"></header>
 
     <div class="sidebar--tab" id="sidebar--tab"><</div>
     <div class="sidebar" id="sidebar">
@@ -77,104 +69,108 @@
 </body>
 
 <script type="module">
-    import { courses } from './../scripts/app.js';
+    import { courses } from "./../scripts/app.js"
+    import { completed } from "./../scripts/app.js"
 
-    const showOutput = () => {
-        const output = document.getElementById("container__output")
-        output.style.top = "-50vh"
-    }
-    
-    const hideOutput = () => {
-        const output = document.getElementById("container__output")
-        output.style.top = "0"
-    }
+    const output = document.getElementById("container__output")
+    const sidebar = document.getElementById("sidebar")
+    const popUp = document.getElementById("pop-up")
 
-    const showTerminal = () => {
-        const output = document.getElementById("container__terminal")
-        output.style.display = "block"
-    }
-    
-    const hideTerminal = () => {
-        const output = document.getElementById("container__terminal")
-        output.style.display = "none"
-    }
-
-    const showIframe = () => {
-        const output = document.getElementById("container__iframe")
-        output.style.display = "block"
-    }
-    
-    const hideIframe = () => {
-        const output = document.getElementById("container__iframe")
-        output.style.display = "none"
-    }
-    
-    const showSidebar = () => {
-        const sidebar = document.getElementById("sidebar")
-        const tab = document.getElementById("sidebar--tab")
-        const filter = document.getElementById("opacity-filter")
+    const showElement = element => {
+        if (element == output) return element.style.top = "-50vh"
         
-        sidebar.style.right = "0"
-        tab.style.opacity = "0"
-        filter.style.opacity = "1"
-        filter.style.zIndex = "20"
+        if (element == sidebar || element == popUp) {
+            const filter = document.getElementById("opacity-filter")
+
+            filter.style.opacity = 1
+            filter.style.zIndex = 20
+
+            if (element == sidebar) {
+                const tab = document.getElementById("sidebar--tab")
+                element.style.right = tab.style.opacity = 0
+            } else {
+                element.style.opacity = 1
+                element.style.zIndex = 30
+            }
+
+            return 
+        }
+
+        element.style.display = "block"
     }
-    
-    const hideSidebar = () => {
-        const sidebar = document.getElementById("sidebar")
-        const tab = document.getElementById("sidebar--tab")
-        const filter = document.getElementById("opacity-filter")
+
+    const hideElement = element => {
+        if (element == output) return element.style.top = 0
         
-        sidebar.style.right = "-100vw"
-        tab.style.opacity = "100%"
-        filter.style.opacity = "0"
-        filter.style.zIndex = "0"
-    }
-
-    const showPopup = () => {
-        const popup = document.getElementById("pop-up")
-        const filter = document.getElementById("opacity-filter")
-
-        popup.style.opacity = 1
-        popup.style.zIndex = 30
-        filter.style.zIndex = 20
-        filter.style.opacity = 1
+        if (element == sidebar) {
+            const tab = document.getElementById("sidebar--tab")
+            const filter = document.getElementById("opacity-filter")
+            
+            element.style.right = "-100vw"
+            tab.style.opacity = "100%"
+            filter.style.opacity = filter.style.zIndex = 0
+            
+            
+            return
+        }
+        
+        element.style.display = "none"
     }
 
     const sidebarBtn = document.getElementById("sidebar__btn")
     const sidebarTab = document.getElementById("sidebar--tab")
 
-    sidebarBtn.addEventListener("click", () => hideSidebar())
-    sidebarTab.addEventListener("click", () => showSidebar())
-
-    let count = 0
-    const tab = document.getElementById("container__output--tab")
+    sidebarBtn.onclick = event => {
+        event.preventDefault()
+        hideElement(sidebar)
+    }
     
-    tab.addEventListener("click", () => {
-        count++
-
-        count % 2 != 0 ? showOutput() : hideOutput()
-    })
-
-    const course = localStorage.getItem("course")
-    const defaultCode = courses[course]["default code"] || ""
-
-    const title = document.getElementById("container__title")
-    const topic = document.getElementById("container__topic")
-
-
-    title.innerHTML = courses[course]["title"]
-    topic.innerHTML = courses[course]["topics"][0]
-
-    if (course == "html-css-js") {
-        hideTerminal()
-        showIframe()
-    } else {
-        hideIframe()
-        showTerminal()
+    sidebarTab.onclick = event => {
+        event.preventDefault()
+        showElement(sidebar)
     }
 
-    const setUpEditor = () => {
+    const course = localStorage.getItem("course") || "Please select a course"
+    
+    const renderCourse = course => {
+        window.defaultCode = courses[course]["default code"] || ""
+
+        const title = document.getElementById("container__title")
+        const topic = document.getElementById("container__topic")
+
+        title.innerHTML = courses[course]["title"]
+        topic.innerHTML = courses[course]["topics"][0]
+    }
+
+    renderCourse(course)
+
+    let count = 0
+    const outputTab = document.getElementById("container__output--tab")
+    
+    const iframe = document.getElementById("container__iframe")
+    const terminal = document.getElementById("container__terminal")
+
+    if (course == "html-css-js") {
+        showElement(iframe)
+        hideElement(terminal)
+    } else {
+        hideElement(iframe)
+    }
+
+    outputTab.onclick = event => {
+        event.preventDefault()
+        count % 2 == 0 ? showElement(output) : hideElement(output)
+        count++
+    }
+
+    const update = () => {
+        const idoc = document.getElementById('container__iframe').contentWindow.document;
+        idoc.open();
+        idoc.write(editor.getValue());
+        idoc.close();
+    }
+
+    (() => {
         window.editor = ace.edit("container__textarea")
         editor.setTheme("ace/theme/pastel_on_dark")
         editor.getSession().setMode("ace/mode/html")
@@ -186,42 +182,31 @@
             enableLiveAutocompletion: true
         }),
         editor.setValue(defaultCode, 1)
-    }
+    })()
 
     const runBtn = document.getElementById("container__run-btn")
     const resetBtn = document.getElementById("container__reset-btn")
     const nextBtn = document.getElementById("pop-up__btn")
 
-    const completed = {
-        'html-css-js': false,
-        'java': false,
-        'python': false,
-        "c-sharp": false
+    runBtn.onclick = event => {
+        event.preventDefault()
+        showElement(popUp)
     }
 
-    runBtn.addEventListener("click", () => {
-        showPopup()
-    })
-
-    resetBtn.addEventListener("click", () => {
+    resetBtn.onclick = event => {
+        event.preventDefault()
         editor.setValue(defaultCode, 1)
-    })
-
-    nextBtn.addEventListener("click", () => {
-        window.location = "./Course.html"
-
-        completed[course] = true
-        localStorage.setItem("completed", JSON.stringify(completed))
-    })
-
-    const update = () => {
-        const idoc = document.getElementById('container__iframe').contentWindow.document;
-
-        idoc.open();
-        idoc.write(editor.getValue());
-        idoc.close();
     }
 
-    window.onload = () => setUpEditor()
+    nextBtn.onclick = event => {
+        event.preventDefault()
+
+        const completedList = JSON.parse(localStorage.getItem("completed")) || completed
+        const user = localStorage.getItem("logged-in")
+        completedList[user][course] = true
+        localStorage.setItem("completed", JSON.stringify(completedList))
+
+        window.location = "./Course.html"
+    }
 </script>
 </html>

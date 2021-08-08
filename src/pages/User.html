@@ -6,21 +6,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../styles/main.css">
     <link rel="stylesheet" href="./../styles/user.css">
+    <script src="./../scripts/render.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <header id="header">
-        <a href="./Home.html" id="logo"><img src="./../assets/images/Logo.png" alt="Logo"></a>
+    <header id="header"></header>
 
-        <nav>
-            <a href="./Home.html#courses__list">Courses</a>
-            <a href="./Contact.html">Get in touch</a>
-            <a href="./Login.html">Login</a>
-        </nav>
-    </header>
+    <section class="container">
+        <div class="container__sidebar">
+            <div class="container__profile"></div>
 
-    Login
+            <span class="container__username h1 bold" id="username">User</span>
+
+            <ul class="container__list">
+                <a href="#progress"><li class="container_links">Progress</li></a>
+                <a href="#security"><li class="container_links">Security & privacy</li></a>
+                <a href="#danger"><li class="container_links">Danger zone</li></a>
+            </ul>
+        </div>
+
+        <div class="container--right">
+            <a href="./Login.html" class="container__logout" id="logout">Logout</a>
+
+            <div class="container__progress" id="progress">
+                <span class="container__title h2 bold to-upper">Progress</span>
+
+                <table class="container__table" id="table">
+                    <tr>    
+                        <th>Course</th>
+                        <th>Progress</th>
+                    </tr>
+                    <tr>
+                        <td>Web development</td>
+                        <td class="status"></td>
+                    </tr>
+                    <tr>
+                        <td>Android apps</td>
+                        <td class="status"></td>
+                    </tr>
+                    <tr>
+                        <td>Data science</td>
+                        <td class="status"></td>
+                    </tr>
+                    <tr>
+                        <td>Game development</td>
+                        <td class="status"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="container__security" id="security">
+                <span class="container__title h2 bold to-upper">Security and privacy settings</span>
+            </div>
+
+            <div class="container__danger" id="danger">
+                <span class="container__title h2 bold to-upper">Danger zone</span>
+
+                <div class="container__delete">
+                    <a href="./Login.html" class="container__span" id="delete">Delete your profile</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer id="footer">Copyright © 2021 learntocode. All rights reserved</footer>
 </body>
+
+<script type="module">
+    import { users } from "./../scripts/app.js"
+    import { completed } from "./../scripts/app.js"
+
+    const logoutBtn = document.getElementById("logout")
+    const deleteBtn = document.getElementById("delete")
+
+    const loggedIn = localStorage.getItem("logged-in")
+
+    if (localStorage.getItem("logged-in") == null) window.location = "./Login.html"
+
+    const usernameElement = document.getElementById("username")
+    const username = localStorage.getItem("logged-in")
+
+    usernameElement.textContent = username
+
+    const renderTable = () => {
+        const status = document.getElementsByClassName("status")
+        const courses = JSON.parse(localStorage.getItem("completed")) || completed
+        
+        let i = 0
+        
+        for (const course in courses[username]) {
+            const completed = courses[username][course]
+            status[i].textContent = completed ? "Completed" : "Not completed"
+            i++
+        }
+    }
+
+    const logout = () => {
+        localStorage.removeItem("logged-in")
+
+        window.location.reload()
+    }
+
+    const deleteUser = () => {
+        const usersList = JSON.parse(localStorage.getItem("users")) || users
+        const completedList = JSON.parse(localStorage.getItem("completed")) || completed
+
+        for (const user in usersList) {
+            if (user == username) {
+                delete usersList[user]
+                delete completedList[user]
+
+                localStorage.removeItem("logged-in")
+
+                localStorage.setItem("users", JSON.stringify(usersList))
+                localStorage.setItem("completed", JSON.stringify(completed))
+            }
+            window.location.reload()
+        }
+    }
+
+    window.onload = renderTable()
+
+    logoutBtn.onclick = event => {
+        event.preventDefault()
+
+        logout()
+    }
+
+    deleteBtn.onclick = event => {
+        event.preventDefault()
+
+        if (confirm("This action is irreversible, are you sure?")) deleteUser()
+    }
+</script>
 </html>

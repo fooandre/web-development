@@ -6,7 +6,7 @@
 	--secondary-color: #48e7f1;
 	--tertiary-color: #0e0e0e;
 	--success-color: #a0ba00;
-	--error-color: #ff7676;
+	--error-color: #ec2929;
 }
 
 * {
@@ -147,7 +147,7 @@ form input:focus {
 form button {
 	background-color: var(--highlight-color);
 	color: var(--primary-color);
-	border: #0e0e0e 2px solid;
+	border: #0e0e0e 3px solid;
 	border-radius: 8px;
 	position: relative;
 	top: 5vh;
@@ -175,4 +175,52 @@ form button:hover {
 	justify-content: center;
 	font-weight: 900;
 	font-size: 0.8em;
+}
+
+@media screen and (max-width: 650px) {
+	#header {
+		font-size: 0.8em;
+	}
+
+	#header img {
+		height: 5vh;
+	}
+
+	#footer {
+		font-size: 0.6em;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	#header {
+		font-size: 0.6em;
+	}
+
+	#header img {
+		height: 3vh;
+	}
+
+	#footer {
+		font-size: 0.5em;
+	}
+}
+
+@media screen and (max-width: 410px) {
+	#footer {
+		font-size: 0.4em;
+	}
+}
+
+@media screen and (max-width: 350px) {
+	#header {
+		font-size: 0.5em;
+	}
+
+	#header img {
+		height: 2vh;
+	}
+
+	#footer {
+		font-size: 0.3em;
+	}
 }

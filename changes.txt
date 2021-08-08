@@ -1,0 +1,3 @@
+1. Added Responsiveness
+
+2. Added popup when user submits form with valid inputs (Homepage)

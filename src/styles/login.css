@@ -1,0 +1,140 @@
+.container {
+	display: flex;
+	width: 100vw;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.container__image {
+	border-radius: 30px;
+	border: #0e0e0e 10px solid;
+}
+
+.container__text--top {
+	position: relative;
+	bottom: 7vh;
+}
+
+.container__form {
+	border-radius: 0 50px 0 50px;
+	background-color: var(--primary-color);
+	box-shadow: var(--highlight-color) -1px 2px 0.5vh;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: center;
+	height: 40vh;
+	width: 40vw;
+	padding: 5vh;
+}
+
+.container__input {
+	border: none;
+	border-left: var(--tertiary-color) 2px solid;
+	border-bottom: var(--tertiary-color) 2px solid;
+	box-shadow: var(--tertiary-color) 0 0 2px;
+	height: 4vh;
+	width: 30vw;
+}
+
+.error-message {
+	display: none;
+	color: var(--error-color);
+	position: absolute;
+	top: 52vh;
+	width: 30vw;
+	font-size: 0.6em;
+}
+
+.error-message:hover {
+	cursor: default;
+}
+
+.container__buttons {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	top: 8vh;
+}
+
+.container__next-btn,
+.container__back-btn {
+	position: relative;
+	border-radius: 50px;
+	border: var(--highlight-color) 3px solid;
+	box-shadow: rgba(97, 97, 97, 0.5) 1px 2px 3px;
+	padding: 1vh 2vw;
+	transition: all 0.3s ease-out;
+}
+
+.container__next-btn:hover,
+.container__back-btn {
+	background-color: var(--highlight-color);
+	color: var(--primary-color);
+}
+
+.container__back-btn {
+	display: none;
+	right: 15vw;
+	transition: all 0.3s ease-out;
+}
+
+.container__back-btn:hover {
+	background-color: var(--primary-color);
+	color: var(--highlight-color);
+}
+
+.container__next-btn:hover {
+	cursor: pointer;
+}
+
+.container__text--bottom {
+	border: none;
+	background-color: var(--secondary-color);
+	position: relative;
+	top: 3vh;
+}
+
+.container__text--bottom:hover {
+	cursor: pointer;
+	text-decoration: underline var(--highlight-color);
+}
+
+@media screen and (max-width: 1320px) {
+	.container__back-btn {
+		right: 10vw;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.container__back-btn {
+		right: 5vw;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.container__buttons {
+		font-size: 0.8em;
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.container__image {
+		display: none;
+	}
+
+	.container__form {
+		width: 60vw;
+	}
+
+	.container__input {
+		width: 45vw;
+	}
+}
+
+@media screen and (max-width: 475px) {
+	.container__buttons {
+		font-size: 0.5em;
+	}
+}

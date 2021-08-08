@@ -6,21 +6,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../styles/main.css">
     <link rel="stylesheet" href="./../styles/contact.css">
+    <script src="./../scripts/render.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <header id="header">
-        <a href="./Home.html" id="logo"><img src="./../assets/images/Logo.png" alt="Logo"></a>
+    <header id="header"></header>
 
-        <nav>
-            <a href="./Home.html#courses__list">Courses</a>
-            <a href="#">Get in touch</a>
-            <a href="./Login.html">Login</a>
-        </nav>
-    </header>
+    <section class="container">
+        <div class="container--left">
+            <div class="mapouter"><div class="gmap_canvas"><iframe width="375" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=w3schools,%20Bijli%20Nagar,%20Kewra%20Bagh,%20Peer%20Gate%20Area,%20Bhopal,%20Madhya%20Pradesh,%20India&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://getasearch.com/fmovies"></a><br><style>.mapouter{position:relative;text-align:right;height:40vh;width:30vw;}</style><a href="https://www.embedgooglemap.net">insert google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:30vw;width:40vh;}</style></div></div>
+        </div>
 
-    Contact
+        <div class="container--right">
+            <div class="container__form--tab bold to-upper">Contact form</div>
+
+            <form action="#" class="container__form">
+                <fieldset class="container__fieldset">
+                    <div class="container__div">
+                        <label for="fname" class="container__label">first</label>
+                        <input type="text" name="fname" class="container__input" id="fname">
+                    </div>
+
+                    <div class="container__div">
+                        <label for="lname" class="container__label">last</label>
+                        <input type="text" name="lname" class="container__input" id="lname">
+                    </div>
+                </fieldset>
+
+                <fieldset class="container__fieldset">
+                    <label for="email" class="container__label">email</label>
+                    <input type="email" name="email" class="container__input" id="email">
+                </fieldset>
+
+                <fieldset class="container__fieldset">
+                    <label for="comments" class="container__label">comments</label>
+                    <input type="textarea" name="comments" class="container__input" id="comments">
+                </fieldset>
+
+                <button type="submit" class="container__submit h3 bold" id="container__submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="opacity-filter"></div>
+        <img src="./../assets/images/Contact.jpeg" alt="Background Image" class="container__background-image">
+    </section>
 
     <footer id="footer">Copyright © 2021 learntocode. All rights reserved</footer>
 </body>
+
+<script>
+    const formBtn = document.getElementById("container__submit")
+    
+    const inputsAreValid = inputs => {
+        for (const input in inputs) {
+            if (input.value == "" || input.value == undefined) return false
+        }
+
+        return true
+    }
+
+    const styleInputs = (inputs, valid) => {
+        for (const input of inputs) {   
+                input.value = valid ? "" : input.value
+                input.style.backgroundColor = valid ? "var(--primary-color)" : "rgba(236, 41, 41, 0.3)"
+                
+                valid ? input.style.border = "none"
+                : input.style.borderLeft = input.style.borderBottom = "var(--error-color) 3px solid"
+            }
+    }
+
+    formBtn.onclick = event => {
+        event.preventDefault()
+
+        const inputs = document.getElementsByTagName("input")
+
+        const valid = inputsAreValid(inputs)
+
+        styleInputs(inputs, valid)
+        !valid || alert("Form submitted!")
+    }
+</script>
 </html>

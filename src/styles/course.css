@@ -109,3 +109,43 @@ span {
 	display: none;
 	flex-direction: column;
 }
+
+@media screen and (max-width: 750px) {
+	.container__title {
+		font-size: 1em;
+	}
+
+	.container__description {
+		font-size: 0.6em;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.container__title,
+	.container__list {
+		font-size: 0.8em;
+	}
+
+	.container__description {
+		font-size: 0.5em;
+	}
+
+	.container__redirect {
+		font-size: 0.6em;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.container__title,
+	.container__list {
+		font-size: 0.6em;
+	}
+
+	.container__description {
+		font-size: 0.4em;
+	}
+
+	.container__redirect {
+		font-size: 0.5em;
+	}
+}

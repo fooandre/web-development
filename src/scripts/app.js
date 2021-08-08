@@ -67,3 +67,23 @@ export const courses = {
         ]
     }
 }
+
+export const users = {
+    "User1": "pass1",
+    "User2": "pass2"
+}
+
+export const completed = {
+    "User1": {
+        'html-css-js': false,
+        'java': false,
+        'python': false,
+        "c-sharp": false
+    },
+    "User2": {
+        'html-css-js': false,
+        'java': false,
+        'python': false,
+        "c-sharp": false
+    },
+}

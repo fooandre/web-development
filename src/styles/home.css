@@ -1,3 +1,7 @@
+html {
+	background-color: #000000;
+}
+
 .hero__background-image,
 .courses__background-image {
 	position: absolute;
@@ -112,7 +116,7 @@
 /* CourseList Section */
 
 .courses {
-	height: 110vh;
+	height: fit-content;
 	color: var(--primary-color);
 }
 
@@ -164,13 +168,43 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 3vw;
+	padding: 3vh 3vw;
+}
+
+.footer__pop-up {
+	border-radius: 20px;
+	background-color: var(--highlight-color);
+	color: var(--primary-color);
+	height: 60vh;
+	width: 40vw;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	position: absolute;
+	top: 305vh;
+	left: 50vw;
+	padding: 5vh 3vw;
+	z-index: 30;
+}
+
+.footer__btn {
+	border-radius: 20px;
+	border: var(--tertiary-color) 3px solid;
+	background-color: var(--highlight-color);
+	color: var(--primary-color);
+	padding: 1vh 2vw;
+	transition: all 0.3s ease-out;
+}
+
+.footer__btn:hover {
+	background-color: var(--tertiary-color);
 }
 
 .footer__form {
-	background-color: var(--highlight-color);
 	border-radius: 0 20px 0 20px;
 	box-shadow: var(--secondary-color) -0.7vw 1vh 0;
+	background-color: var(--highlight-color);
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
@@ -179,10 +213,14 @@
 	padding: 15vh;
 }
 
-.container__form-title {
-	position: relative;
-	top: -5vh;
-	font-size: 0.7em;
+.footer__form-title {
+	transform: translateY(-50%);
+	font-size: 0.8em;
+}
+
+.footer__input-area {
+	border: none;
+	background-color: var(--primary-color);
 }
 
 .footer__container--right {
@@ -200,4 +238,205 @@
 .footer__link::before {
 	margin-right: 2vw;
 	content: "|";
+}
+
+@media screen and (max-width: 1275px) {
+	.hero__redirect {
+		font-size: 0.6em;
+	}
+}
+
+@media screen and (max-width: 1250px) {
+	.hero__redirect {
+		font-size: 0.5em;
+	}
+
+	.hero__logo {
+		height: 15vh;
+	}
+
+	.hero__description {
+		font-size: 2em;
+	}
+
+	.to-login__title,
+	.to-login__text,
+	.to-login__redirect span {
+		font-size: 0.8em;
+	}
+
+	.footer {
+		flex-direction: column;
+		height: 100vh;
+	}
+}
+
+@media screen and (max-width: 1050px) {
+	.to-login__title,
+	.to-login__text,
+	.to-login__redirect span {
+		font-size: 0.7em;
+	}
+}
+
+@media screen and (max-width: 875px) {
+	.hero__logo {
+		height: 10vh;
+	}
+
+	.hero__title {
+		font-size: 0.8em;
+	}
+
+	.hero__description {
+		font-size: 1.5em;
+	}
+
+	.to-login__title,
+	.to-login__text,
+	.to-login__redirect span {
+		font-size: 0.6em;
+	}
+
+	.courses__icon {
+		height: 10vh;
+	}
+
+	.courses__title,
+	.courses__description {
+		font-size: 0.8em;
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.to-login__title,
+	.to-login__text,
+	.to-login__redirect span {
+		font-size: 0.5em;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.hero__redirect {
+		font-size: 0.4em;
+	}
+
+	.hero__logo {
+		height: 7vh;
+	}
+
+	.hero__title {
+		font-size: 0.6em;
+	}
+
+	.hero__description {
+		font-size: 1em;
+	}
+
+	.to-login__title,
+	.to-login__text,
+	.to-login__redirect span {
+		font-size: 0.4em;
+	}
+
+	.courses__icon {
+		height: 8vh;
+	}
+
+	.courses__title,
+	.courses__description {
+		font-size: 0.6em;
+	}
+
+	.footer__title {
+		font-size: 1em;
+	}
+
+	.footer__link {
+		font-size: 0.6em;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.to-login__title,
+	.to-login__text,
+	.to-login__redirect span {
+		font-size: 0.3em;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.hero__redirect {
+		font-size: 0.3em;
+	}
+
+	.hero__logo {
+		height: 5vh;
+	}
+
+	.hero__title {
+		font-size: 0.5em;
+	}
+
+	.hero__description {
+		font-size: 0.8em;
+	}
+
+	.to-login__title,
+	.to-login__text,
+	.to-login__redirect span {
+		font-size: 0.2em;
+	}
+
+	.courses__icon {
+		height: 7vh;
+	}
+
+	.courses__title,
+	.courses__description {
+		font-size: 0.5em;
+	}
+
+	.footer__title {
+		font-size: 0.8em;
+	}
+
+	.footer__link {
+		font-size: 0.5em;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.hero__redirect {
+		font-size: 0.2em;
+	}
+
+	.hero__logo {
+		height: 4vh;
+	}
+
+	.hero__title {
+		font-size: 0.4em;
+	}
+
+	.hero__description {
+		font-size: 0.6em;
+	}
+
+	.courses__icon {
+		height: 4vh;
+	}
+
+	.courses__title,
+	.courses__description {
+		font-size: 0.4em;
+	}
+
+	.footer__title {
+		font-size: 0.8em;
+	}
+
+	.footer__link {
+		font-size: 0.5em;
+	}
 }
