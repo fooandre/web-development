@@ -44,8 +44,6 @@
     import { completed } from "./../scripts/app.js"
 
     const usersList = JSON.parse(localStorage.getItem("users")) || users
-
-    if (localStorage.getItem("logged-in") != null) window.location = "./User.html"
     
     const title = document.getElementById("container__title")
     const label = document.getElementById("container__label")
@@ -78,8 +76,7 @@
         if (password == usersList[user]) {
             localStorage.setItem("logged-in", user)
 
-            window.location == toCourse ? "./Course.html" : "./User.html"
-            window.location.reload()
+            window.location = toCourse ? "./Course.html" : "./User.html"
             
             return
         }
@@ -90,6 +87,7 @@
 
     const signUp = (user, password) => {
         const completedList = JSON.parse(localStorage.getItem("completed")) || completed
+        const toCourse = localStorage.getItem("to-course")
 
         if (typeof usersList[user] !== "undefined") return alert("User already exists!")
 
@@ -104,8 +102,8 @@
         localStorage.setItem("users", JSON.stringify(usersList))
         localStorage.setItem("completed", JSON.stringify(completedList))
         localStorage.setItem("logged-in", user)
-        
-        window.location = "./User.html"
+    
+        window.location = toCourse ? "./Course.html" : "./User.html"
     }
 
     input.onmousedown = () => hideError()
@@ -165,5 +163,7 @@
         title.textContent == "Login" ? title.textContent = "Sign up" : title.textContent = "Login"
         changeBtn.textContent == "Sign up instead" ? changeBtn.textContent = "Or login" : changeBtn.textContent = "Sign up instead"
     }
+
+    if (localStorage.getItem("logged-in") != null) window.location = "./User.html"
 </script>
 </html>
